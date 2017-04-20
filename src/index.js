@@ -33,7 +33,10 @@ export class Saga extends Component {
     if(!this.context.sagas) {
       throw new Error('did you forget to include <Sagas/>?')
     }
-    this.runningSaga = this.context.sagas.run(this.props.saga, this.props)
+    this.runningSaga = this.context.sagas.run(this.props.saga, {
+      ...this.props,
+      getProps: () => this.props
+    })
   }
 
   componentWillReceiveProps() {
@@ -64,4 +67,3 @@ export function saga(run) {
     }
   }
 }
-
